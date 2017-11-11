@@ -1,4 +1,4 @@
-require "./spec_helper.rb"
+require_relative "spec_helper.rb"
 
 class SQS_Helper
 
@@ -64,9 +64,9 @@ class SQS_Helper
 	def delete_row(row, confirm)
 		row.link(:text => 'delete').flash.click
 		if confirm
-			@browser.alert.ok
+			#@browser.alert.ok
 		else
-			@browser.alert.close
+			#@browser.alert.close
 		end
 	end
 

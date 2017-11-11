@@ -1,4 +1,4 @@
-require './SQS_Helper.rb'
+require_relative 'SQS_Helper.rb'
 
 class SQS < SQS_Helper
 
