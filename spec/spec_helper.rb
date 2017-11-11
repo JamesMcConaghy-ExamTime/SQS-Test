@@ -1,43 +1,28 @@
-require 'selenium-webdriver'
-require 'sauce_whisk'
+require "rspec"
+require "watir" 
+require "watir/rspec"
+require "pry"
+
+RESERVED_IVARS = %w(@browser).map(&:to_sym).freeze
 
 RSpec.configure do |config|
 
-  config.before(:each) do |example|
-    ENV['host']             ||= 'saucelabs'
-    ENV['base_url']         ||= 'http://the-internet.herokuapp.com'
-    ENV['operating_system'] ||= 'Windows 10'
-    ENV['browser']          ||= 'firefox'
-    ENV['browser_version']  ||= '50.0'
+	config.add_formatter('documentation')
+	config.add_formatter(Watir::RSpec::HtmlFormatter)
 
-    case ENV['host']
-    when 'localhost'
-      @driver = Selenium::WebDriver.for :chrome
-    when 'saucelabs'
-      caps = Selenium::WebDriver::Remote::Capabilities.send(ENV['browser'])
-      caps[:platform]  = ENV['operating_system']
-      caps[:version]   = ENV['browser_version']
-      caps[:name]      = example.metadata[:full_description]
-      @driver = Selenium::WebDriver.for(
-        :remote,
-        url: "http://#{ENV['SAUCE_USERNAME']}:#{ENV['SAUCE_ACCESS_KEY']}@ondemand.saucelabs.com:80/wd/hub",
-        desired_capabilities: caps)
-    end
-  end
+	config.before :all, :watir do 
+		@browser = Watir::Browser.new :safari
+		Watir.always_locate = false
+		@browser.cookies.clear
+		@browser.driver.manage.timeouts.page_load = 5
+		@browser.driver.manage.timeouts.implicit_wait = 5
+		@browser.driver.manage.window.maximize
+	end
 
-  config.after(:each) do |example|
-    begin
-      if ENV['host'] == 'saucelabs'
-        if example.exception.nil?
-          SauceWhisk::Jobs.pass_job @driver.session_id
-        else
-          SauceWhisk::Jobs.fail_job @driver.session_id
-          raise "Watch a video of the test at https://saucelabs.com/tests/#{@driver.session_id}"
-        end
-      end
-    ensure
-      @driver.quit
-    end
-  end
+	config.after :all, :watir do
+		@browser.close if @browser
+	end
+
+	config.include Watir::RSpec::Helper, :watir
 
 end
