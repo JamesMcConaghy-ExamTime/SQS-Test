@@ -21,21 +21,21 @@ class SQS < SQS_Helper
 			end
 
 			it "should be possible to click on the button, which should refresh the canvas" do
-				canvas_element = element(id: 'canvas')
+				canvas_element = sqs.locate(CANVAS)
 				canvas_element.exists?
 				sqs.click_btn
 				expect(canvas_element.stale?).to eq true
 			end
 
 			it "should be possible to click on the alert button, which should refresh the canvas" do
-				canvas_element = element(id: 'canvas')
+				canvas_element = sqs.locate(CANVAS)
 				canvas_element.exists?
 				sqs.click_btn_alert
 				expect(canvas_element.stale?).to eq true
 			end
 
 			it "should be possible to click on the success button, which should refresh the canvas" do
-				canvas_element = element(id: 'canvas')
+				canvas_element = sqs.locate(CANVAS)
 				canvas_element.exists?
 				sqs.click_btn_success
 				expect(canvas_element.stale?).to eq true

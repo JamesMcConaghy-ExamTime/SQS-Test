@@ -15,7 +15,7 @@ RSpec.configure do |config|
 		Watir.always_locate = false
 		@browser.cookies.clear
 		@browser.driver.manage.timeouts.page_load = 5
-		@browser.driver.manage.timeouts.implicit_wait = 5
+		@browser.driver.manage.timeouts.implicit_wait = 0
 		@browser.driver.manage.window.maximize
 	end
 

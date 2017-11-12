@@ -1,0 +1,11 @@
+SQS:
+  CONTENT: "@browser.div(id: 'content')"
+  CANVAS: "@browser.canvas(id: 'canvas')"
+  BUTTON: "@browser.div(id: 'content').divs(class: 'row')[0].links(class: 'button')[0]"
+  BUTTONALERT: "@browser.div(id: 'content').divs(class: 'row')[0].link(class: ['button', 'alert'])"
+  BUTTONSUCCESS: "@browser.div(id: 'content').divs(class: 'row')[0].link(class: ['button', 'success'])"
+  TABLE: "@browser.table"
+  TABLE_ROWS: "@browser.table.tbody.trs"
+  ROW_BY_LOREM: "@browser.table.tbody.td(text: '%{name}').parent"
+  ROW_EDIT_BY_LOREM: "@browser.table.tbody.td(text: '%{name}').parent.link(:text => 'edit')"
+  ROW_DELETE_BY_LOREM: "@browser.table.tbody.td(text: '%{name}').parent.link(:text => 'delete')"
