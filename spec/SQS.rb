@@ -9,15 +9,11 @@ class SQS < SQS_Helper
 		before :all do
 			sqs = SQS_Helper.new(@browser)
 		end
-
-		after :all do
-			
-		end
 		
 		context "Tests" do
 
 			it "should verify the page title" do
-				expect(@browser.title).to include ('The Internet')
+				expect(sqs.page_title).to include ('The Internet')
 			end
 
 			it "should wait until the page has loaded and key elements appear" do

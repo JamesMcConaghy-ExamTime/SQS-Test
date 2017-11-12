@@ -1,40 +1,44 @@
-require_relative "spec_helper.rb"
+require_relative "base_helper.rb"
 
-class SQS_Helper
+class SQS_Helper < Base_Helper
 
 	@browser = nil
 
 	attr_reader :browser
 
 	def initialize(browser)
-		@browser = browser
-		@browser.goto "http://the-internet.herokuapp.com/challenging_dom"
+		super
+		goto "http://the-internet.herokuapp.com/challenging_dom"
+	end
+
+	def page_title
+		 return @browser.title
 	end
 
 	def page_ready?
-		@browser.div(id: 'content').wait_until_present
-		@browser.table.wait_until_present
-		@browser.canvas.wait_until_present
+		locate(CONTENT).wait_until_present
+		locate(TABLE).wait_until_present
+		locate(CANVAS).wait_until_present
 	end
 
 	def click_btn
-		@browser.div(id: 'content').divs(class: 'row')[0].links(class: 'button')[0].flash.click
+		locate(BUTTON).flash.click
 		sleep(1)
 	end
 
 	def click_btn_alert
-		@browser.div(id: 'content').divs(class: 'row')[0].link(class: ['button', 'alert']).flash.click
+		locate(BUTTON_ALERT).flash.click
 		sleep(1)
 	end
 
 	def click_btn_success
-		@browser.div(id: 'content').divs(class: 'row')[0].link(class: ['button', 'success']).flash.click
+		locate(BUTTON_SUCCESS).flash.click
 		sleep(1)
 	end
 
 	def select_random_row
 		rows = []
-		@browser.table.tbody.rows.each do |row|
+		locate(TABLE_ROWS).each do |row|
 			rows << row
 		end
 		row = rows.sample
@@ -42,7 +46,7 @@ class SQS_Helper
 	end
 
 	def select_row_by_lorem(lorem)
-		row = @browser.table.tbody.td(text: lorem).parent
+		row = locate(ROW_BY_LOREM, lorem)
 		return row
 	end
 
