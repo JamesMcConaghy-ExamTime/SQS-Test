@@ -1,0 +1,52 @@
+﻿Objectives
+To ensure the functional interaction of the webpage and that users can edit, delete records via the interface. This should be automated to reduce manual test time.
+
+- Assuming the rows of data are stored and loaded from a database and the interface allows a user to interact with this data by viewing, editing and deleting.
+- Assuming when clicking edit the tds become text inputs allowing users to change values. This can then be saved or cancelled.
+- Assuming when clicking delete an alert appears allowing users to confirm/cancel the action.
+
+In Scope 
+The webpage “https://the-internet.herokuapp.com/challenging_dom”
+No other views will be required to be tested
+Functional testing will be covered by automation.
+
+Out of Scope
+Security / Performance will not be required
+Mobile devices will not be required
+Other pages are not required
+
+Test Plan
+Page title should be correct
+
+Page content, table, canvas should be visible and ready for the user to use
+
+Clicking the button should do
+
+Clicking the red button should do
+
+Clicking the green button should do
+
+Cancelling the deletion of a row should not delete the row
+
+Confirming the deletion of a row should remove the row from the table
+
+Confirming the deletion of a row should remove the row from the table. The data should persist on page refresh
+
+Editing a row and cancelling the edit should not save the changes
+
+Editing a row and confirming the edit should save the changes
+
+Editing a row and confirming the edit should save the changes. The data should persist on page refresh
+
+Automation requirements
+Ruby
+Watir
+Rspec
+Pry – Debugger
+Brower drivers
+
+Possible improvements to automation
+Ran on a local environment
+Git pull latest repository for new changes to codebase
+Ensure each time the test scripts are ran the local environment backend data is reset
+Ran on multiple browsers
